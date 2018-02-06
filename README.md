@@ -1,4 +1,4 @@
-# He lab m6A-seq_analysis_flow
+# He lab m6A-seq_analysis_workflow
 A pipeline to process m6A-seq data and down stream analysis for he lab members. 
 
 ## Prepare data for analysis
