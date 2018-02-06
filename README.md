@@ -1,5 +1,5 @@
-# m6A-seq_analysis_flow
-A pipeline to process m6A-seq data and down stream analysis. 
+# He lab m6A-seq_analysis_flow
+A pipeline to process m6A-seq data and down stream analysis for he lab members. 
 
 ## Prepare data for analysis
 ### 1. Download the data from the genomic core. 
