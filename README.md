@@ -4,7 +4,12 @@ A pipeline to process m6A-seq data and down stream analysis for he lab members.
 ## Prepare data for analysis
 ### 1. Download the data from the genomic core. 
 You can use [filezilla](https://filezilla-project.org/download.php?type=client) to download the data from che@osrfftp.uchicago.edu (port: 21) and upload it to **youraccount**@128.135.225.178 (port: 22).  
-Alternatively, you can ssh log into **youraccount**@128.135.225.178 and go to the directory by `cd /directory of your favorite` where you want to analyze your data. Then use the `sftp ` to directly download the data from sequencing facility server to the lab analysis server. 
+Alternatively, you can ssh log into **youraccount**@128.135.225.178 and go to the directory by `cd /directory of your favorite` where you want to analyze your data. Then use the 
+```
+sftp -r che@osrfftp.uchicago.edu:/data_file_or_directory_name ./
+```
+to directly download the data from sequencing facility server to the lab analysis server. 
+
 
 ### 2. Organize and rename files for processing
 In order to be easily processed, rename the files to short names without space and postfix `.IN.fastq.gz` or `.m6A.fastq.gz` for input and IP respectively.  
