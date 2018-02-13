@@ -147,7 +147,8 @@ The parameter `joint_threshold = 2` defines the least number of sample to have p
 To report joint peak of all samples 
 ```
 Joint_peak <- reportJointPeak(monster, threads = 6)
-write.table(Joint_peak, file = "/home/<your account name>/project1/fisherPeak", sep = "\t", row.names = F, quote = F)
+unique.Joint_peak <- Joint_peak[which(!duplicated(paste(Joint_peak$chr,Joint_peak$start,Joint_peak$end,sep = ":"))),]
+write.table(unique.Joint_peak, file = "/home/<your account name>/project1/fisherPeak", sep = "\t", row.names = F, quote = F)
 ```
 
 
