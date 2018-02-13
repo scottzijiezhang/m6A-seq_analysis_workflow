@@ -167,7 +167,7 @@ Please read the detailed explanantion of parameters of MEME [here](http://meme-s
 
 You can also try discriminative motif discovery using another tool provided in MEME suite, which is [**DREME**](http://meme-suite.org/doc/dreme.html?man_type=web). 
 ```
-dreme -o DREME_motif -p jointPeak.fa -n ~/Database/transcriptome/backgroup_peaks/hg38_200bp_randomPeak.fa -png -rna -m 5 -k 5 
+dreme -o DREME_motif -p jointPeak.fa -n ~/Database/transcriptome/backgroup_peaks/hg38_200bp_randomPeak.fa -rna -m 5 -k 5 
 ```
 The discriminative motif discovery try to find enriched motif relative to a background file frovided user. Here we provide a randomly sample 200bp peaks as background. 
 
