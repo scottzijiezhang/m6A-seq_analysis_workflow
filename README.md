@@ -150,6 +150,23 @@ Joint_peak <- reportJointPeak(monster, threads = 6)
 unique.Joint_peak <- Joint_peak[which(!duplicated(paste(Joint_peak$chr,Joint_peak$start,Joint_peak$end,sep = ":"))),]
 write.table(unique.Joint_peak, file = "/home/<your account name>/project1/fisherPeak/Joint_peak.bed", sep = "\t", row.names = F, col.names = F, quote = F)
 ```
+### 2. Peak calling using published method [MeTPeak](https://github.com/compgenomics/MeTPeak),[Reference](https://www.ncbi.nlm.nih.gov/pmc/articles/PMC4908365/)
+```
+library(MeTPeak)
+
+samplenames = c("sample1","sample2","sample3")
+Input_bamPath <- paste0("/home/xxx/project1/bam_files/",samplenames,".input.bam")
+IP_bamPath <- paste0("/home/xxx/project1/bam_files/",samplenames,".m6A.bam")
+
+metpeak(IP_BAM = IP_bamPath, INPUT_BAM = Input_bamPath,
+        GENE_ANNO_GTF= "~/Database/genome/hg38/hg38_UCSC.gtf",
+        OUTPUT_DIR= "/home/xxx/project1/fisherPeak",
+        EXPERIMENT_NAME = "You name it",
+        FRAGMENT_LENGTH = 150
+        )
+
+```
+
 
 ### Denovo motif search for peaks
 In unix shell, `cd` to directory where your `peak.bed` file locate.  First extract peak sequence from reference genome using bed file of peaks. -
