@@ -148,8 +148,28 @@ To report joint peak of all samples
 ```
 Joint_peak <- reportJointPeak(monster, threads = 6)
 unique.Joint_peak <- Joint_peak[which(!duplicated(paste(Joint_peak$chr,Joint_peak$start,Joint_peak$end,sep = ":"))),]
-write.table(unique.Joint_peak, file = "/home/<your account name>/project1/fisherPeak", sep = "\t", row.names = F, quote = F)
+write.table(unique.Joint_peak, file = "/home/<your account name>/project1/fisherPeak/Joint_peak.bed", sep = "\t", row.names = F, col.names = F, quote = F)
 ```
+
+### Denovo motif search for peaks
+In unix shell, `cd` to directory where your `peak.bed` file locate.  First extract peak sequence from reference genome using bed file of peaks. -
+```
+bedtools getfasta -fi ~/Database/genome/hg38/hg38_UCSC.fa -bed Joint_peak.bed -fo Joint_peak.fa -split -s
+```
+Please read [**bedtools**](http://bedtools.readthedocs.io/en/latest/content/tools/getfasta.html) documentation to understand what this line of code is doing.
+
+Then we can use motif search tools to perform motif enrichment analysis. Here I will demonstrate using [MEME suite](http://meme-suite.org) to search for motif. 
+```
+export PATH=~/Database/program/meme/bin:$PATH
+meme jointPeak.fa -o MEME_motif -rna -mod anr -nmotifs 5 -minw 5 -maxw 7 -maxsize 6000000
+```
+Please read the detailed explanantion of parameters of MEME [here](http://meme-suite.org/doc/meme.html?man_type=web)
+
+You can also try discriminative motif discovery using another tool provided in MEME suite, which is [**DREME**](http://meme-suite.org/doc/dreme.html?man_type=web). 
+```
+dreme -o DREME_motif -p jointPeak.fa -n ~/Database/transcriptome/backgroup_peaks/hg38_200bp_randomPeak.fa -png -rna -m 5 -k 5 
+```
+The discriminative motif discovery try to find enriched motif relative to a background file frovided user. Here we provide a randomly sample 200bp peaks as background. 
 
 
 ## Differential methylation analysis
