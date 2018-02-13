@@ -86,7 +86,29 @@ With the aligned bam files, you are ready to proceed with varies down stream ana
 ## Gene level differential expression analysis can refer to tutorial [here](https://www.bioconductor.org/help/workflows/rnaseqGene/). 
 
 ## Peak calling
-Still working on a new packge
+### 1. Fisher's excat test to call peak
+The following tutorial will assume that you store the mapped bam files in directory `/home/xxx/project1/bam_files` and the bam files are named by convention `samplename.input.bam and samplename.m6A.bam`.  
+First in a terminal (connected to our analysis server 128.135.225.178), enter R session by type `R` and `Enter`. You should see something like this when you entered R session. 
+```
+
+R version 3.4.3 (2017-11-30) -- "Kite-Eating Tree"
+Copyright (C) 2017 The R Foundation for Statistical Computing
+Platform: x86_64-pc-linux-gnu (64-bit)
+
+R is free software and comes with ABSOLUTELY NO WARRANTY.
+You are welcome to redistribute it under certain conditions.
+Type 'license()' or 'licence()' for distribution details.
+
+  Natural language support but running in an English locale
+
+R is a collaborative project with many contributors.
+Type 'contributors()' for more information and
+'citation()' on how to cite R or R packages in publications.
+
+Type 'demo()' for some demos, 'help()' for on-line help, or
+'help.start()' for an HTML browser interface to help.
+Type 'q()' to quit R.
+```
 
 ## Differential methylation analysis
 This section is under construction >:< 
