@@ -182,11 +182,28 @@ meme jointPeak.fa -o MEME_motif -rna -mod anr -nmotifs 5 -minw 5 -maxw 7 -maxsiz
 ```
 Please read the detailed explanantion of parameters of MEME [here](http://meme-suite.org/doc/meme.html?man_type=web)
 
-You can also try discriminative motif discovery using another tool provided in MEME suite, which is [**DREME**](http://meme-suite.org/doc/dreme.html?man_type=web). 
+An alternative to try is using [**Homer**](http://homer.ucsd.edu/homer/index.html) to search for motif. 
 ```
-dreme -o DREME_motif -p jointPeak.fa -n ~/Database/transcriptome/backgroup_peaks/hg38_200bp_randomPeak.fa -rna -m 5 -k 5 
+findMotifs.pl jointPeak.fa fasta /home/xxx/project1/fisherPeak/homer_motif -fasta ~/Database/transcriptome/backgroup_peaks/hg38_200bp_randomPeak.fa -rna -p 10 -len 5,6,7 
 ```
-The discriminative motif discovery try to find enriched motif relative to a background file frovided user. Here we provide a randomly sample 200bp peaks as background. 
+`jointPeak.fa` is the peak sequence you extracted In previous step in fasta format. `fasta` defined the format of input file. `/home/xxx/project1/fisherPeak/homer_motif` defined the output directory of homer motif analysis. `-fasta` difined the background sequence in fasta format. Here we provide a randomly sample 200bp peaks as background. `-rna` tell homer to output "U" instead of "T". `-p 10` tell homer to use 10 threads. `-len 5,6,7` tell homer to search for motif of length 5,6,7.  
+
+### Plot Meta Gene of the peak you called. 
+Here I use R package [Guitar]() to plot the meta gene distribution of peaks. Guitar normalized the density of peaks on each feature (5UTR, CDS, 3UTR) by the length of the feature, which correlates to the expected occurence of peak by chance.  
+To get start, we need to have the peak in bed12 format read into R. In previous peak calling step, if you used m6Amonster to call joint peak:
+```
+Joint_peak <- reportJointPeak(monster, threads = 6)
+```
+You already have your peak in variable `Joint_peak`. You can proceed to next step
+```
+plotMetaGene(Joint_peak,gtf = "~/Database/genome/hg38/hg38_UCSC.gtf")
+```
+
+If you used other tools to call peak, you can first read peak file into R and then plot the meta gene:
+```
+peak <- read.table("path/to/peak.bed",sep = "\t", stringsAsFactors = F)
+plotMetaGene(peak,gtf = "~/Database/genome/hg38/hg38_UCSC.gtf")
+```
 
 
 ## Differential methylation analysis
