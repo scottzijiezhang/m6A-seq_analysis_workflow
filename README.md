@@ -62,7 +62,7 @@ Similar to the code above, we use the **Hisat2** to align the reads to the refer
 An example of bash file to map to the human hg38 reference genome is provided below:  
 ```
 INDEX="$HOME/Database/genome/hg38/hg38_UCSC"
-SPLICE="#HOME/Database/genome/hg38/hisat2_splice_sites.txt"
+SPLICE="$HOME/Database/genome/hg38/hisat2_splice_sites.txt"
 Data="$HOME/path_to/the_directory_where_sample.IN/m6A.noMyco.fastq.gz_locate"
 Output="/path_to_output_directory"
 
