@@ -72,7 +72,7 @@ do
 
 hisat2 -x $INDEX --known-splicesite-infile $SPLICE -k 1 --no-unal --summary-file $s.IN.align_summary -p 4 -U $Data/$s.IN.noMyco.fastq.gz |samtools view -bS > $Output/$s.input.bam
 
-hisat2 -x $INDEX --known-splicesite-infile $SPLICE -k 1  --no-unal --summary-file $s.m6A.align_summary -p 4 -U $Data/$s.m6A.fastq.gz samtools view -bS > $Output/$s.m6A.bam
+hisat2 -x $INDEX --known-splicesite-infile $SPLICE -k 1  --no-unal --summary-file $s.m6A.align_summary -p 4 -U $Data/$s.m6A.noMyco.fastq.gz | samtools view -bS > $Output/$s.m6A.bam
 
 wait
 done
