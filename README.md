@@ -175,14 +175,7 @@ bedtools getfasta -fi ~/Database/genome/hg38/hg38_UCSC.fa -bed Joint_peak.bed -f
 ```
 Please read [**bedtools**](http://bedtools.readthedocs.io/en/latest/content/tools/getfasta.html) documentation to understand what this line of code is doing.
 
-Then we can use motif search tools to perform motif enrichment analysis. Here I will demonstrate using [MEME suite](http://meme-suite.org) to search for motif. 
-```
-export PATH=~/Database/program/meme/bin:$PATH
-meme jointPeak.fa -o MEME_motif -rna -mod anr -nmotifs 5 -minw 5 -maxw 7 -maxsize 6000000
-```
-Please read the detailed explanantion of parameters of MEME [here](http://meme-suite.org/doc/meme.html?man_type=web)
-
-An alternative to try is using [**Homer**](http://homer.ucsd.edu/homer/index.html) to search for motif. 
+Then we can use motif search tools to perform motif enrichment analysis. Here I will demonstrate using [**Homer**](http://homer.ucsd.edu/homer/index.html) to search for motif. 
 ```
 findMotifs.pl jointPeak.fa fasta /home/xxx/project1/fisherPeak/homer_motif -fasta ~/Database/transcriptome/backgroup_peaks/hg38_200bp_randomPeak.fa -rna -p 10 -len 5,6,7 
 ```
