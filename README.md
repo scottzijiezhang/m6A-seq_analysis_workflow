@@ -2,6 +2,9 @@
 A pipeline to process m6A-seq data and down stream analysis for he lab members. 
 
 ## Prepare data for analysis
+### 0. Design your experiment carefully
+Data analysis would benefit greatly from careful design of your experiment. Be sure each batch of m6A-Seq contains a normal control. Use the same analysis pipeline for all your datasets when you need to compare them.
+
 ### 1. Download the data from the genomic core. 
 You can use [filezilla](https://filezilla-project.org/download.php?type=client) to download the data from che@osrfftp.uchicago.edu (port: 21) and upload it to **youraccount**@128.135.225.178 (port: 22).  
 Alternatively, you can ssh log into **youraccount**@128.135.225.178 and go to the directory by `cd /directory of your favorite` where you want to analyze your data. Then use the 
@@ -23,7 +26,18 @@ Ctl1.m6A.fastq.gz
 FTO_KO5.IN.fastq.gz
 FTO_KO5.m6A.fastq.gz
 ```
-Backup your data with a detailed descriptive metadata table is also recommended.
+### 3. Backup your data to our backup server
+Preparing a detailed descriptive metadata table is highly recommended. Then backup your datasets using the following command line:
+```
+## single file
+smbclient -U username%passward //helabdata1.uchicago.edu/your_directory -c 'put local_file remote_file'
+smbclient -U username%passward //helabdata2.uchicago.edu/your_directory -c 'put local_file remote_file'
+## directory
+smbclient -U username%passward //helabdata1.uchicago.edu/your_directory -c 'recurse; prompt; mput local_directory*'
+smbclient -U username%passward //helabdata2.uchicago.edu/your_directory -c 'recurse; prompt; mput local_directory*'
+## for example
+smbclient -U username%passward //helabdata1.uchicago.edu/xcui -c 'put m6A_IP.fq.gz m6A_IP.fq.gz'
+```
 
 ## Map the data to the mycoplasma genome to check for potential comtamination.
 We are goint to use fast and sensitive alignment program **Hisat2** to align the reads to the mycoplasma genome. You can go to official page of [Hisat2](https://ccb.jhu.edu/software/hisat2/index.shtml) to learn more about the software and parameters setting.  
