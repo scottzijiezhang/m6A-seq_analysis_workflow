@@ -30,14 +30,14 @@ FTO_KO5.m6A.fastq.gz
 Preparing a detailed descriptive metadata table is highly recommended. Then backup your datasets using the following command line:
 ```
 ## single file
-smbclient -U username%passward //helabdata1.uchicago.edu/your_directory -c 'put local_file remote_file'
 smbclient -U username%passward //helabdata2.uchicago.edu/your_directory -c 'put local_file remote_file'
 ## directory
-smbclient -U username%passward //helabdata1.uchicago.edu/your_directory -c 'recurse; prompt; mput local_directory*'
 smbclient -U username%passward //helabdata2.uchicago.edu/your_directory -c 'recurse; prompt; mput local_directory*'
 ## for example
 smbclient -U username%passward //helabdata1.uchicago.edu/xcui -c 'put m6A_IP.fq.gz m6A_IP.fq.gz'
 ```
+Please find *Scott* if you don't have an account in our databackup server at <helabdata2.uchicago.edu>.
+If you have question about using **smbclient** to upload and download data, please consult *Xiaolong*. 
 
 ## Map the data to the mycoplasma genome to check for potential comtamination.
 We are goint to use fast and sensitive alignment program **Hisat2** to align the reads to the mycoplasma genome. You can go to official page of [Hisat2](https://ccb.jhu.edu/software/hisat2/index.shtml) to learn more about the software and parameters setting.  
