@@ -70,9 +70,9 @@ mySample="sample1 sample2 sample3 sample4 treated1 treated2 treated3 treated4 tr
 for s in $mySample
 do 
 
-hisat2 -x $INDEX --known-splicesite-infile $SPLICE -k 1 --no-unal --summary-file $s.IN.align_summary -p 4 -U $Data/$s.IN.noMyco.fastq.gz |samtools view -bS > $Output/$s.input.bam
+hisat2 -x $INDEX --known-splicesite-infile $SPLICE -k 1 --no-unal --summary-file $s.IN.align_summary -p 4 -U $Data/$s.IN.noMyco.fastq.gz |samtools view -bS |samtools sort > $Output/$s.input.bam
 
-hisat2 -x $INDEX --known-splicesite-infile $SPLICE -k 1  --no-unal --summary-file $s.m6A.align_summary -p 4 -U $Data/$s.m6A.noMyco.fastq.gz | samtools view -bS > $Output/$s.m6A.bam
+hisat2 -x $INDEX --known-splicesite-infile $SPLICE -k 1  --no-unal --summary-file $s.m6A.align_summary -p 4 -U $Data/$s.m6A.noMyco.fastq.gz | samtools view -bS |samtools sort > $Output/$s.m6A.bam
 
 wait
 done
@@ -131,6 +131,8 @@ monster <- countReads(samplenames = samplenames,
 
 Then countReads function will count reads on continuous bins of size defined by `binSize = 50`. The parameter `gtf = "~/Database/genome/hg38/hg38_UCSC.gtf"` defines the annotation file for gene model. If you are working on mouse, thie should be `gtf = "~/Database/genome/mm10/mm10_UCSC.gtf"` (you might need to download gtf files yourself for other organisms).  
 The parameter `bamFolder = "/path"` defines the directory where you put your bam files.  
+
+**Note** `m6Amonster` requires paired **BAM** files for both **INPUT** and **IP**. For each `samplenames` given to the `countReads` function, you will need to have *samplename.input.bam* and *samplename.m6A.bam* in your *bamFolder* directory. 
 
 Next we call peak by
 ```
