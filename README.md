@@ -40,7 +40,7 @@ Please find *Scott* if you don't have an account in our databackup server at <he
 If you have question about using **smbclient** to upload and download data, please consult *Xiaolong*. 
 
 ## Map the data to the mycoplasma genome to check for potential comtamination.
-We are goint to use fast and sensitive alignment program **Hisat2** to align the reads to the mycoplasma genome. You can go to official page of [Hisat2](https://ccb.jhu.edu/software/hisat2/index.shtml) to learn more about the software and parameters setting.  
+We are going to use fast and sensitive alignment program **Hisat2** to align the reads to the mycoplasma genome. You can go to official page of [Hisat2](https://ccb.jhu.edu/software/hisat2/index.shtml) to learn more about the software and parameters setting.  
   
 Mapping can be done at command line by excuting the Hisat2 command one by one for each sample. Alternatively, we use a bash file to wrap the Hisat2 command to loop through all our samples to save us some effort to keep excuting hisat2 command.  
   
@@ -216,4 +216,5 @@ plotMetaGene(peak,gtf = "~/Database/genome/hg38/hg38_UCSC.gtf")
 
 
 ## Differential methylation analysis
-This section is under construction >:< 
+
+[Click here](https://scottzijiezhang.github.io/RADARmannual)
