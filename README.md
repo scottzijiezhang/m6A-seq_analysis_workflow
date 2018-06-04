@@ -84,9 +84,9 @@ mySample="sample1 sample2 sample3 sample4 treated1 treated2 treated3 treated4 tr
 for s in $mySample
 do 
 
-hisat2 -x $INDEX --known-splicesite-infile $SPLICE -k 1 --no-unal --summary-file $s.IN.align_summary -p 4 -U $Data/$s.IN.noMyco.fastq.gz |samtools view -bS |samtools sort > $Output/$s.input.bam
+hisat2 -x $INDEX --known-splicesite-infile $SPLICE -k 1 --no-unal --summary-file $s.IN.align_summary -p 4 -U $Data/$s.IN.noMyco.fastq.gz |samtools view -bS |samtools sort -o $Output/$s.input.bam
 
-hisat2 -x $INDEX --known-splicesite-infile $SPLICE -k 1  --no-unal --summary-file $s.m6A.align_summary -p 4 -U $Data/$s.m6A.noMyco.fastq.gz | samtools view -bS |samtools sort > $Output/$s.m6A.bam
+hisat2 -x $INDEX --known-splicesite-infile $SPLICE -k 1  --no-unal --summary-file $s.m6A.align_summary -p 4 -U $Data/$s.m6A.noMyco.fastq.gz | samtools view -bS |samtools sort -o $Output/$s.m6A.bam
 
 wait
 done
