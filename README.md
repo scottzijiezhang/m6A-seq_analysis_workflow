@@ -7,7 +7,7 @@ Data analysis would benefit greatly from careful design of your experiment. Be s
 
 ### 1. Download the data from the genomic core. 
 You can use [filezilla](https://filezilla-project.org/download.php?type=client) to download the data from che@osrfftp.uchicago.edu (port: 21) and upload it to **youraccount**@128.135.225.178 (port: 22).  
-Alternatively, you can ssh log into **youraccount**@128.135.225.178 and go to the directory by `cd /directory of your favorite` where you want to analyze your data. Then use the 
+Alternatively, you can ssh log into **youraccount**@128.135.225.81 and go to the directory by `cd /directory of your favorite` where you want to analyze your data. Then use the 
 ```
 sftp -r che@osrfftp.uchicago.edu:/data_file_or_directory_name ./
 ## for example
