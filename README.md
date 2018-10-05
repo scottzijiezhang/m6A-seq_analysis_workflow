@@ -150,7 +150,7 @@ The parameter `bamFolder = "/path"` defines the directory where you put your bam
 
 Next we call peak by
 ```
-monster <- callPeakFisher=(monster, min_counts = 15, peak_cutoff_fdr = 0.05 , peak_cutoff_oddRatio = 1, threads = 6)
+monster <- callPeakFisher(monster, min_counts = 15, peak_cutoff_fdr = 0.05 , peak_cutoff_oddRatio = 1, threads = 6)
 ```
 You can play with different parameter to tune the stringency of peak calling. The `callPeakFisher()` function call peak on each sample separately and add a matrix of logical value to list `monster` indicating for each samples (column), whether a bin (row) is enriched or not. You can check the logical values by `monster$peakCallResult`.  
 
@@ -193,7 +193,7 @@ Please read [**bedtools**](http://bedtools.readthedocs.io/en/latest/content/tool
 
 Then we can use motif search tools to perform motif enrichment analysis. Here I will demonstrate using [**Homer**](http://homer.ucsd.edu/homer/index.html) to search for motif. 
 ```
-findMotifs.pl jointPeak.fa fasta /home/xxx/project1/fisherPeak/homer_motif -fasta ~/Database/transcriptome/backgroup_peaks/hg38_200bp_randomPeak.fa -rna -p 10 -len 5,6,7 
+findMotifs.pl jointPeak.fa fasta /home/xxx/project1/fisherPeak/homer_motif -fasta ~/Database/transcriptome/backgroud_peaks/hg38_200bp_randomPeak.fa -rna -p 10 -len 5,6,7 
 ```
 `jointPeak.fa` is the peak sequence you extracted In previous step in fasta format. `fasta` defined the format of input file. `/home/xxx/project1/fisherPeak/homer_motif` defined the output directory of homer motif analysis. `-fasta` difined the background sequence in fasta format. Here we provide a randomly sample 200bp peaks as background. `-rna` tell homer to output "U" instead of "T". `-p 10` tell homer to use 10 threads. `-len 5,6,7` tell homer to search for motif of length 5,6,7.  
 
