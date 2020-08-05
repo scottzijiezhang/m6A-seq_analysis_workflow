@@ -124,48 +124,51 @@ Type 'demo()' for some demos, 'help()' for on-line help, or
 Type 'q()' to quit R.
 ```
 
-Now you can load the R package **m6Amonster** for peak calling.  
+Now you can load the R package **MeRIPtools** for peak calling.  
 ```
-library(m6Amonster)
+library(MeRIPtools)
 ```
 Then define the sample names of your analysis and the count the reads in consecutive bins on transcript. 
 ```
 samplenames = c("sample1","sample2","sample3")
 
-monster <- countReads(samplenames = samplenames,
-                    gtf = "~/Database/genome/hg38/hg38_UCSC.gtf",
-                    bamFolder = "/home/xxx/project1/bam_files",
-                    outputDir =  "/home/xxx/project1/fisherPeak",
-                    modification = "m6A",
-                    binSize = 50,
-                    threads = 6
+TestRun <- countReads(samplenames = samplenames,
+                      gtf = "~/Database/genome/hg38/hg38_UCSC.gtf",
+                      bamFolder = "/home/xxx/project1/bam_files",
+                      outputDir =  "/home/xxx/project1/fisherPeak",
+                      modification = "m6A",
+                      binSize = 50,
+                      threads = 6
 )
 
 ```
 
 Then countReads function will count reads on continuous bins of size defined by `binSize = 50`. The parameter `gtf = "~/Database/genome/hg38/hg38_UCSC.gtf"` defines the annotation file for gene model. If you are working on mouse, thie should be `gtf = "~/Database/genome/mm10/mm10_UCSC.gtf"` (you might need to download gtf files yourself for other organisms).  
-The parameter `bamFolder = "/path"` defines the directory where you put your bam files.  
+The parameter `bamFolder = "/path"` defines the directory where you have stored your bam files. This is related to the previous step `Output="/path_to_output_directory"` where you defined the directory to store aligned BAM files.   
 
-**Note** `m6Amonster` requires paired **BAM** files for both **INPUT** and **IP**. For each `samplenames` given to the `countReads` function, you will need to have *samplename.input.bam* and *samplename.m6A.bam* in your *bamFolder* directory. 
+**Note** `MeRIPtools` requires paired **BAM** files for both **INPUT** and **IP**. For each `samplenames` given to the `countReads` function, you will need to have *samplename.input.bam* and *samplename.m6A.bam* in your *bamFolder* directory. 
 
 Next we call peak by
 ```
-monster <- callPeakFisher(monster, min_counts = 15, peak_cutoff_fdr = 0.05 , peak_cutoff_oddRatio = 1, threads = 6)
+TestRun <- callPeakFisher(TestRun, min_counts = 15, peak_cutoff_fdr = 0.05 , peak_cutoff_oddRatio = 1, threads = 6)
 ```
-You can play with different parameter to tune the stringency of peak calling. The `callPeakFisher()` function call peak on each sample separately and add a matrix of logical value to list `monster` indicating for each samples (column), whether a bin (row) is enriched or not. You can check the logical values by `monster$peakCallResult`.  
+You can play with different parameter to tune the stringency of peak calling. The `callPeakFisher()` function call peak on each sample separately and add a matrix of logical value to list `TestRun` indicating for each samples (column), whether a bin (row) is enriched or not. You can check the logical values by `TestRun@peakCallResult`.  
 
 If you are interested in getting read counts in each peak (e.g. to estimate enrichment of IP experiment), you can use 
 ```
-monster <- JointPeakCount(monster, joint_threshold = 2)
+TestRun <- JointPeakCount(TestRun, joint_threshold = 2)
 ```
-The parameter `joint_threshold = 2` defines the least number of sample to have peak called at each locus to call this locus as joint peak. If you require a peak to consistently be called in all samples, you should use `joint_threshold = #of samples`. If you want to include more locus where peak is call only in a subset of samples, this parameter difines the number of sample in the subset. Default is 2. The counts of **Input** is store at `monster$jointPeak_input` and the counts of **IP** is at `monster$jointPeak_ip`.  
+The parameter `joint_threshold = 2` defines the least number of sample to have peak called at each locus to call this locus as joint peak. If you require a peak to consistently be called in all samples, you should use `joint_threshold = #of samples`. If you want to include more locus where peak is call only in a subset of samples, this parameter difines the number of sample in the subset. Default is 2. The counts of **Input** is store at `TestRun@jointPeak_input` and the counts of **IP** is at `TestRun@jointPeak_ip`.  
 
 To report joint peak of all samples 
 ```
-Joint_peak <- reportJointPeak(monster, threads = 6)
+Joint_peak <- reportJointPeak(TestRun, threads = 6)
 unique.Joint_peak <- Joint_peak[which(!duplicated(paste(Joint_peak$chr,Joint_peak$start,Joint_peak$end,sep = ":"))),]
 write.table(unique.Joint_peak, file = "/home/<your account name>/project1/fisherPeak/Joint_peak.bed", sep = "\t", row.names = F, col.names = F, quote = F)
 ```
+Please refer to the R package [MeRIPtools](https://scottzijiezhang.github.io/MeRIPtoolsManual/) for more details about peak calling.
+
+
 ### 2. Peak calling using published method [MeTPeak](https://github.com/compgenomics/MeTPeak),[Reference](https://www.ncbi.nlm.nih.gov/pmc/articles/PMC4908365/)
 ```
 library(MeTPeak)
@@ -199,9 +202,9 @@ findMotifs.pl jointPeak.fa fasta /home/xxx/project1/fisherPeak/homer_motif -fast
 
 ### Plot Meta Gene of the peak you called. 
 Here I use R package [Guitar]() to plot the meta gene distribution of peaks. Guitar normalized the density of peaks on each feature (5UTR, CDS, 3UTR) by the length of the feature, which correlates to the expected occurence of peak by chance.  
-To get start, we need to have the peak in bed12 format read into R. In previous peak calling step, if you used m6Amonster to call joint peak:
+To get start, we need to have the peak in bed12 format read into R. In previous peak calling step, if you used MeRIPtools to call joint peak:
 ```
-Joint_peak <- reportJointPeak(monster, threads = 6)
+Joint_peak <- reportJointPeak(TestRun, threads = 6)
 ```
 You already have your peak in variable `Joint_peak`. You can proceed to next step
 ```
